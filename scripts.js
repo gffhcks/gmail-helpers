@@ -40,6 +40,44 @@ function forwarder() {
   forwardMessage('Expense', 'receipts@concur.com')
 }
 
+// Email Snooze
+// Apply a 'snooze' label to a thread and it will be automatically taken out of your inbox, then thrown back in when the time has passed.
+
+// GmailApp.getUserLabels
+// GmailLabel.getName()
+// GmailLabel.getThreads()
+// http://www.w3schools.com/jsref/jsref_obj_regexp.asp
+//  define the pattern: var patt = /w3schools/i
+// test the pattern: patt.test(string) returns true or false
+
+
+function CalculateSnoozes(){
+// Search for the Snooze tag in the archive.
+// In that search, find any of the threads labeled with relative age labels.
+// Get the current time, add the timespan to the current time.
+// Add a new absolute time label, creating it if necessary.
+// Remove the relative time label.
+}
+
+function ArchiveSnoozes(){
+// Find any threads labeled with a tag matching [Snooze].
+// Tag with the top level '[snooze]'.
+// Run "moveThreadsToArchive()" on them.
+
+}
+
+function RestoreSnoozes(){
+// Get all tags that are under Snooze and match an ISO date regex.
+// Check the name agains the current date.
+// If the date has passed, run a search for all of the messages with that label, and move to Inbox.
+// Remove the Snooze and the relative date tags.
+}
+
+function WipeSnoozes(){
+// Get all tags under Snooze that match a date regex.
+// Search on them. If there are zero messages tagged, delete the label.
+}
+
 
 // INBOX MAINTENANCE
 // Mark as read, archive, or delete threads based on a label.
