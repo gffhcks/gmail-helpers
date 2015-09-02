@@ -3,27 +3,29 @@
 // Based on sample code from the Gmail Blog
 // http://gmailblog.blogspot.com/2011/07/gmail-snooze-with-apps-script.html
 
-var MARK_UNREAD = false;
-var ADD_UNSNOOZED_LABEL = true;
-var MAX_SNOOZE=14
+var SNOOZE = "[Snooze]"          // Top-level name for snooze labels
+var UNSNOOZE = "[Unsnoozed]"     // Label to apply to unsnoozed threads
+var MARK_UNREAD = true;          // If true, mark thread as unread when returning to inbox
+var ADD_UNSNOOZED_LABEL = false; // If true, add the UNSNOOZE label when returning to inbox
+var MAX_SNOOZE=14                // Maximum snooze length in days
 
 function getLabelName(i) {
-  return "Snooze/Snooze " + i + " days";
+  return SNOOZE+"/"+i+" days";
 }
 
 function init() {
   // Create the labels we’ll need for snoozing
-  GmailApp.createLabel("Snooze");
+  GmailApp.createLabel(SNOOZE);
   for (var i = 1; i <= MAX_SNOOZE; ++i) {
     GmailApp.createLabel(getLabelName(i));
   }
   if (ADD_UNSNOOZED_LABEL) {
-    GmailApp.createLabel("Unsnoozed");
+    GmailApp.createLabel(UNSNOOZE);
   }
 }
 
 function moveSnoozes() {
-  // Schedule this function to run automatically.
+  // Schedule this function to run automatically ONCE PER DAY.
 
   init()
   var oldLabel, newLabel, page;
@@ -45,7 +47,7 @@ function moveSnoozes() {
             GmailApp.markThreadsUnread(page);
           }
           if (ADD_UNSNOOZED_LABEL) {
-            GmailApp.getUserLabelByName("Unsnoozed")
+            GmailApp.getUserLabelByName(UNSNOOZE)
               .addToThreads(page);
           }
         }
